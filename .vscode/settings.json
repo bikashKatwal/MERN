@@ -1,0 +1,5 @@
+{
+    "emmet.triggerExpansionOnTab": true,
+    "files.associations": { "*.js": "javascriptreact" },
+    "editor.fontSize": 16,
+}
