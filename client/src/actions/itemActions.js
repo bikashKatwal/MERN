@@ -1,14 +1,19 @@
 import axios from 'axios';
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from './types';
 
-export const getItems = () => dispatch => {
-  dispatch(setItemsLoading());
-  axios.get('/api/items').then(res =>
-    dispatch({
-      type: GET_ITEMS,
-      payload: res.data
-    })
-  );
+export const getItems = () => async dispatch => {
+    try{
+        dispatch(setItemsLoading());
+        await axios.get('/api/items').then(res =>
+            dispatch({
+            type: GET_ITEMS,
+            payload: res.data
+            })
+        );
+    }
+    catch(error){
+        console.log(error, 'error while loading items')
+    }
 };
 
 export const addItem = item => async dispatch => {
@@ -24,13 +29,17 @@ export const addItem = item => async dispatch => {
   }
 };
 
-export const deleteItem = id => dispatch => {
-  axios.delete(`/api/items/${id}`).then(res =>
-    dispatch({
-      type: DELETE_ITEM,
-      payload: id
-    })
-  );
+export const deleteItem = id => async dispatch => {
+    try{
+        await axios.delete(`/api/items/${id}`).then(res =>
+            dispatch({
+            type: DELETE_ITEM,
+            payload: id
+            })
+        );
+    }catch(error){
+        console.log(error, 'error while deleting items')
+    }
 };
 
 export const setItemsLoading = () => {
